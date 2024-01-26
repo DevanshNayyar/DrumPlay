@@ -1,24 +1,65 @@
-if (window.performance.navigation.type === 1) {
-  rollDice();
+for (var i = 0; i < document.querySelectorAll(".drum").length; i++) {
+  document.querySelectorAll("button")[i].addEventListener("click", function() {
+    var buttonInnerHTML = this.innerHTML;
+    makeSound(buttonInnerHTML);
+    buttonAnimation(buttonInnerHTML);
+  });
 }
 
-function rollDice() {
-  var randomNumber1 = Math.random();
-  randomNumber1 = Math.floor(randomNumber1 * 6) + 1;
-  var randomNumber2 = Math.random();
-  randomNumber2 = Math.floor(randomNumber2 * 6) + 1;
+document.addEventListener("keydown", function(event) {
+  makeSound(event.key);
+  buttonAnimation(event.key);
+});
 
-  var image1 = "images/dice" + randomNumber1 + ".png";
-  var image2 = "images/dice" + randomNumber2 + ".png";
 
-  document.querySelector(".img1").setAttribute("src", image1);
-  document.querySelector(".img2").setAttribute("src", image2);
+function makeSound(key) {
+  switch (key) {
+    case "w":
+      var audio1 = new Audio("sounds/tom-1.mp3");
+      audio1.play();
+      break;
 
-  if (randomNumber1 > randomNumber2) {
-    document.querySelector("h1").innerHTML = "🚩Player-1 WINS";
-  } else if (randomNumber1 < randomNumber2) {
-    document.querySelector("h1").innerHTML = "Player-2 WINS🚩";
-  } else {
-    document.querySelector("h1").innerHTML = "🏳️DRAW🏳️";
+    case "a":
+      var audio2 = new Audio("sounds/tom-2.mp3");
+      audio2.play();
+      break;
+
+    case "s":
+      var audio3 = new Audio("sounds/tom-3.mp3");
+      audio3.play();
+      break;
+
+    case "d":
+      var audio4 = new Audio("sounds/tom-4.mp3");
+      audio4.play();
+      break;
+
+    case "j":
+      var audio5 = new Audio("sounds/snare.mp3");
+      audio5.play();
+      break;
+
+
+    case "k":
+      var audio6 = new Audio("sounds/crash.mp3");
+      audio6.play();
+      break;
+
+    case "l":
+      var audio7 = new Audio("sounds/kick-bass.mp3");
+      audio7.play();
+      break;
+
+    default:
+      console.log(buttonInnerHTML);
+
   }
+
+}
+
+function buttonAnimation(currentKey){
+ var aciveKey =document.querySelector("."+currentKey);
+ aciveKey.classList.add("pressed");
+ setTimeout(function(){
+   aciveKey.classList.remove("pressed");} , 100);
 }
